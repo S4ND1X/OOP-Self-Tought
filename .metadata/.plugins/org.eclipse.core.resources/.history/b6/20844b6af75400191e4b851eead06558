@@ -1,0 +1,24 @@
+package youtube;
+
+import java.util.Scanner;
+
+public class SumaMain {
+
+	public static void main(String[] args) {
+		
+		Scanner Input = new Scanner(System.in);
+		
+		System.out.println("Dame el primer valor: ");
+		int valorUno = input.nextInt();
+		System.out.println("Dame el segundo valor: ");
+		int valorDos = input.nextInt();
+		Input
+		//Se crea un objeto
+		Suma valores = new Suma(valorUno,valorDos);
+		
+		valores.Imprimir();
+		
+
+	}
+
+}

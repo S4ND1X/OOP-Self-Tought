@@ -1,0 +1,14 @@
+package area;
+
+
+public class Rectangulo {
+	
+	private int base, altura, area;
+	
+	public Rectangulo(int base, int altura){
+		
+		this.base = base;
+	}
+	
+
+}

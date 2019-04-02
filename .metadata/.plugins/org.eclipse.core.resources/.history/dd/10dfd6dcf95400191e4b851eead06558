@@ -1,0 +1,15 @@
+package area;
+
+
+public class Rectangulo {
+	//Las que tiene la clase
+	private int base, altura, area;
+	
+	//Las que recibe el constructor del objeto
+	public Rectangulo(int base, int altura){
+		
+		this.base = base;
+	}
+	
+
+}

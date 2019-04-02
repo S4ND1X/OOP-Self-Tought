@@ -1,0 +1,17 @@
+
+public class prueba2 {
+
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		
+		String myName;
+		myName = "Jorge";
+		
+		for(int i = 0; i< 10; i++) {
+			System.out.println(myName);
+		}
+
+
+	}
+
+}

@@ -1,0 +1,13 @@
+package area;
+
+
+public class Rectangulo {
+	
+	
+	
+	public Rectangulo(int base, int altura){
+				
+	}
+	
+
+}

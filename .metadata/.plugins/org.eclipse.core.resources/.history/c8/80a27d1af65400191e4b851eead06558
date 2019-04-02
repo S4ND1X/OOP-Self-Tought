@@ -1,0 +1,24 @@
+package youtube;
+
+public class Suma {
+	
+	private int vUno, vDos, Resultado;
+	
+	//Constructor
+	public Suma(int valorUno, int valorDos) {
+		
+		//Se usa this para asginarle valores a estos atributos
+		this.vUno = valorUno;
+		this.vDos = valorDos;		
+	}
+	
+	public void Operacion() {
+		 
+		Resultado = vUno + vDos;
+	}
+	
+	public void Imprimir() {
+		Operacion();
+		System.out.println("El resultado es " + Resultado)
+	}
+}

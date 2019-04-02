@@ -1,0 +1,13 @@
+package inversorPalabras;
+
+public class inversorPalabras {
+
+	public static void main(String[] args) {
+		String palabra = "", palabraInvertida = "";
+		int  longitudPalabra = 0;	
+		
+		
+
+	}
+
+}

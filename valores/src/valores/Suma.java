@@ -1,0 +1,27 @@
+package valores;
+
+public class Suma {
+	
+	private int vUno, vDos, Resultado;	
+	
+	//Constructor
+	public Suma(int valorUno, int valorDos) {
+		
+		//Se usa this para referirse a esta clase
+		this.vUno = valorUno;
+		this.vDos = valorDos;
+		
+	}	
+	//Metodos de la clase
+	public void Operacion() {
+		
+		Resultado = vUno + vDos;
+		
+	}	
+	public void Imprimir() {
+		
+		Operacion();
+		System.out.println("El resultado es " + Resultado);
+		
+	}
+}

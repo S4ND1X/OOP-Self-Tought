@@ -1,0 +1,10 @@
+package area;
+
+public class RectanguloMain {
+
+	public static void main(String[] args) {
+		
+
+	}
+
+}

@@ -1,0 +1,22 @@
+
+public class prueba2 {
+
+	public static void main(String[] args) {
+		
+		
+		
+		String myInt;
+		
+		myInt = 1;
+		
+		System.out.println(myInt);
+		
+		
+		
+		
+		
+
+
+	}
+
+}

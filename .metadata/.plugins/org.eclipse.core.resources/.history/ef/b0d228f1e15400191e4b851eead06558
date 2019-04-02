@@ -1,0 +1,19 @@
+package inversorPalabras;
+
+import java.util.Scanner;
+
+public class inversorPalabras {
+
+	public static void main(String[] args) {
+		String palabra = "", palabraInvertida = "";
+		int  longitudPalabra = 0;
+		Scanner entrada = new Scanner(System.in);
+		
+		System.out.print("Pon una palabra o una frase: ");
+		palabra = entrada.nextLine();
+		
+		longitudPalabra = palabra.length();
+
+	}
+
+}

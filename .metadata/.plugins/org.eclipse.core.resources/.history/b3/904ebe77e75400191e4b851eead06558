@@ -1,0 +1,12 @@
+package youtube;
+
+public class Suma {
+	
+	private int vUno, vDos, Resultado;
+	
+	public Suma(int valorUno, int valorDos) {
+		
+	}
+	
+
+}
