@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable{	
 	
@@ -12,13 +13,24 @@ public class Game extends Canvas implements Runnable{
 	 */
 	private static final long serialVersionUID = -735169705092086816L;
 	
-	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
+	public static final int WIDTH = 1080, HEIGHT = WIDTH / 12 * 9;
 	
 	private Thread thread;
 	private boolean running = false;
+	private Handler handler;
+	private HUD hud;
 	
 	public Game() {
-		new Window(WIDTH, HEIGHT, "First Game", this);
+		//Crear nuevo Handler
+		handler = new Handler();
+		this.addKeyListener(new KeyInput(handler));
+		new Window(WIDTH, HEIGHT, "First Game", this);	
+		//Crear nuevo objeto
+		handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player));
+		handler.addObject(new BasicEnemy(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.BasicEnemy));
+		
+		hud = new HUD();
+		
 	}
 
 	public synchronized void start() {
@@ -37,6 +49,7 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 	public void run() {	
+		this.requestFocus();
 		/* 	Game Loop 
 		 * 	https://stackoverflow.com/questions/26706134/need-explanation-about-a-java-game-loop
 		 * 
@@ -72,7 +85,8 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void tick() {
-		
+		handler.tick();
+		hud.tick();
 	}
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
@@ -82,12 +96,21 @@ public class Game extends Canvas implements Runnable{
 		}
 		//Poder dibujar
 		Graphics g = bs.getDrawGraphics();
-			
+			 
 		g.setColor(Color.pink);
 		g.fillRect(0, 0, WIDTH, HEIGHT );
 		
+		handler.render(g);
+		hud.render(g);
+		
 		g.dispose();
 		bs.show();
+	}
+	
+	public static int clamp(int var, int min, int max) {
+		if(var >= max) return var = max;
+		else if(var <= min) return var = min;
+		else return var;
 	}
 	
 	public static void main(String args[]) {

@@ -11,7 +11,7 @@ public abstract class GameObject {
 	
 	public GameObject(int x, int y, ID id) {
 		this.x = x;
-		this.velY = y;
+		this.y = y;
 		this.id = id;
 	}
 	
@@ -27,11 +27,11 @@ public abstract class GameObject {
 	}
 	
 	public int getX() {
-		return x;
+		return this.x;
 	}
 	
 	public int getY() {
-		return y;
+		return this.y;
 	}
 	
 	public void setID(ID id) {
@@ -39,7 +39,23 @@ public abstract class GameObject {
 	}
 	
 	public ID getID() {
-		return id;
+		return this.id;
+	}
+	
+	public void setVelX(int velX) {
+		this.velX = velX;
+	}
+	
+	public void setVelY(int velY) {
+		this.velY = velY;
+	}
+	
+	public int getVelX() {
+		return this.velX;
+	}
+	
+	public int getVelY() {
+		return this.velY;
 	}
 	
 	
