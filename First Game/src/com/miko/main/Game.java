@@ -7,29 +7,36 @@ import java.awt.image.BufferStrategy;
 import java.util.Random;
 
 public class Game extends Canvas implements Runnable{	
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -735169705092086816L;
 	
-	public static final int WIDTH = 1080, HEIGHT = WIDTH / 12 * 9;
+	public static final int WIDTH = 720, HEIGHT = WIDTH / 12 * 9;
 	
 	private Thread thread;
 	private boolean running = false;
 	private Handler handler;
+	private Random r;
 	private HUD hud;
 	
 	public Game() {
+		
 		//Crear nuevo Handler
 		handler = new Handler();
 		this.addKeyListener(new KeyInput(handler));
-		new Window(WIDTH, HEIGHT, "First Game", this);	
-		//Crear nuevo objeto
-		handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player));
-		handler.addObject(new BasicEnemy(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.BasicEnemy));
-		
+		//Crear ventana
+		new Window(WIDTH, HEIGHT, "First Game", this);			
+		//Crear el HUD
 		hud = new HUD();
+		
+		r = new Random();		
+		//Crear nuevo objeto
+		handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
+		handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy, handler));
+
+		
+		
 		
 	}
 
@@ -97,7 +104,7 @@ public class Game extends Canvas implements Runnable{
 		//Poder dibujar
 		Graphics g = bs.getDrawGraphics();
 			 
-		g.setColor(Color.pink);
+		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT );
 		
 		handler.render(g);

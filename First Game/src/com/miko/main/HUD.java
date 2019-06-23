@@ -1,29 +1,24 @@
 package com.miko.main;
-
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class HUD {
-	
-	
-	public int HEALTH = 100;
-	
+public class HUD {	
+	public static int HEALTH = 100;
 	
 	public void tick() {
-		HEALTH--;
 		HEALTH = Game.clamp(HEALTH, 0, 100);
 		
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(Color.black);
+		//Color de fondo
+		g.setColor(Color.DARK_GRAY);
 		g.fillRect(15, 15, 200, 32);
-		g.setColor(Color.green	);
+		//Color de vida
+		g.setColor(Color.blue);
 		g.fillRect(15, 15, HEALTH * 2, 32);
-		g.setColor(Color.white);
+		//Borde
+		g.setColor(Color.LIGHT_GRAY);
 		g.drawRect(15, 15, 200, 32);
 	}
-	
-	
-
 }

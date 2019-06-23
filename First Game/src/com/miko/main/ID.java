@@ -3,6 +3,7 @@ package com.miko.main;
 public enum ID {
 	
 	Player(),
-	BasicEnemy();
+	BasicEnemy(),
+	Trail();
 	
 }
