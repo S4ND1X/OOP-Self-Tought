@@ -15,8 +15,9 @@ public class Trail extends GameObject {
 	private int width, height;
 	private float life;
 
-	public Trail(int x, int y, ID id,Color color, int width, int height, float life, Handler handler) {
+	public Trail(float x, float y, ID id,Color color, int width, int height, float life, Handler handler) {
 		super(x, y, id);
+		//Iniciar variables
 		this.color = color;
 		this.life = life;
 		this.width = width;
@@ -25,6 +26,7 @@ public class Trail extends GameObject {
 	}
 	
 	public void tick() {
+		//Vida del trail
 		if(alpha > life) {
 			alpha -= life - 0.001f;
 		}else handler.removeObject(this);
@@ -36,7 +38,7 @@ public class Trail extends GameObject {
 		g2d.setComposite(makeTransparent(alpha));
 		
 		g.setColor(color);
-		g.fillRect(x, y, width, height);
+		g.fillRect((int)x,(int) y, width, height);
 		
 		g2d.setComposite(makeTransparent(1));
 		
@@ -47,6 +49,7 @@ public class Trail extends GameObject {
 		return(AlphaComposite.getInstance(type, alpha));
 	}
 	
+	//No tiene colision
 	public Rectangle getBounds() {
 		return null;
 	}

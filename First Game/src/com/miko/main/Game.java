@@ -12,13 +12,14 @@ public class Game extends Canvas implements Runnable{
 	 */
 	private static final long serialVersionUID = -735169705092086816L;
 	
-	public static final int WIDTH = 720, HEIGHT = WIDTH / 12 * 9;
+	public static final int WIDTH = 1080, HEIGHT = WIDTH / 12 * 9;
 	
 	private Thread thread;
 	private boolean running = false;
 	private Handler handler;
 	private Random r;
 	private HUD hud;
+	private Spawner spawner;
 	
 	public Game() {
 		
@@ -29,15 +30,14 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH, HEIGHT, "First Game", this);			
 		//Crear el HUD
 		hud = new HUD();
-		
+		//Crear Spawner
+		spawner = new Spawner(handler, hud);
 		r = new Random();		
 		//Crear nuevo objeto
-		handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
-		handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy, handler));
+		handler.addObject(new Player(WIDTH / 2 - 64, HEIGHT / 2 - 32, ID.Player, handler));
+		handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.BasicEnemy, handler));
 
-		
-		
-		
+		 
 	}
 
 	public synchronized void start() {
@@ -83,7 +83,7 @@ public class Game extends Canvas implements Runnable{
 			
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println("Frames: " + frames);
+				//System.out.println("Frames: " + frames);
 				frames = 0;
 			}
 		}
@@ -92,8 +92,12 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void tick() {
+		//Administrador de objetos
 		handler.tick();
+		//Actualizar el hud
 		hud.tick();
+		//Actualizar los enemigos
+		spawner.tick();
 	}
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
@@ -103,18 +107,22 @@ public class Game extends Canvas implements Runnable{
 		}
 		//Poder dibujar
 		Graphics g = bs.getDrawGraphics();
-			 
+		
+		//Dibujar el tablero encima del Jframe	 
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT );
 		
+		//Renderizar los objetos
 		handler.render(g);
+		//Renderizar el HUD
 		hud.render(g);
 		
 		g.dispose();
 		bs.show();
 	}
 	
-	public static int clamp(int var, int min, int max) {
+	//Funcion para restringir rangos
+	public static float clamp(float var, float min, float max) {
 		if(var >= max) return var = max;
 		else if(var <= min) return var = min;
 		else return var;
