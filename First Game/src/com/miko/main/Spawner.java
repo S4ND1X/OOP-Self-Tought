@@ -13,8 +13,7 @@ public class Spawner {
 	public Spawner(Handler handler, HUD hud){
 		this.handler = handler;
 		this.hud = hud;
-	}
-	
+	}	
 	
 	public void tick() 
 	{
@@ -25,11 +24,10 @@ public class Spawner {
 			hud.setLevel(hud.getLevel() + 1);
 			//Enemigos segun los niveles
 			level = hud.getLevel();
+			//Enemigos segun los niveles
 			switch(level) 
 			{
 			case 2:
-				handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
-
 				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
 					break;
 			case 3:
@@ -41,6 +39,11 @@ public class Spawner {
 				
 			case 5:
 				handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
+				break;
+				
+			case 6:
+				handler.clearEnemys();
+				handler.addObject(new BossEnemy((Game.WIDTH / 2) - 64, -140, ID.BossEnemy, handler));
 				break;
 			}
 		}

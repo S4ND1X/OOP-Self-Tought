@@ -18,9 +18,13 @@ public class HUD {
 		//Hara que el valor de verde disminuya y se haga cada vez más oscuro
 		greenValue = (HEALTH * 2);
 		
+		//Tiempo que ha pasado desde el inicio hasta ahora
 		elapsedTime = System.currentTimeMillis() - startTime;
+		//Obtener tiempo en segundos
 		seconds = elapsedTime / 1000;
+		//Contador 60 == 1 segundo
 		cont++;
+		//El score seran los segundos que han pasado
 		score = (int) seconds;		
 	}
 	

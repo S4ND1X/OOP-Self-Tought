@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 
 public class Player extends GameObject {
 	Handler handler;
+	private boolean hasCollided;
 	//Valores Iniciales
 	public Player(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
@@ -37,12 +38,27 @@ public class Player extends GameObject {
 		for(int i = 0; i < handler.object.size(); i++) {
 			//Aux para recorrer
 			GameObject tempObject = handler.object.get(i);
-			//Si el objeto es un enemigo
-			if(tempObject.getID() == ID.BasicEnemy || tempObject.getID() == ID.FastEnemy || tempObject.getID() == ID.SmartEnemy) {
-				//Si el rectangulo del player intersecta con el rectangulo del enemigo se quita dos de salud
-				if(getBounds().intersects(tempObject.getBounds())){
-					HUD.HEALTH -= 2;
-				}
+			//Depende el enemigo se aplica diferente efecto
+			switch(tempObject.getID()) {	
+				//Si es colisiono con el enemigo se aplica un efecto
+				case BasicEnemy:
+					if(this.getBounds().intersects(tempObject.getBounds()))HUD.HEALTH -=1;					
+					break;					
+				case FastEnemy:
+					if(this.getBounds().intersects(tempObject.getBounds()))HUD.HEALTH -=8;					
+					break;
+				case SmartEnemy:
+					if(this.getBounds().intersects(tempObject.getBounds()))HUD.HEALTH -=2;					
+					break;	
+				case BossEnemy:
+					if(this.getBounds().intersects(tempObject.getBounds()))HUD.HEALTH -=50;					
+					break;
+				case BossEnemyBullets:
+					if(this.getBounds().intersects(tempObject.getBounds()))HUD.HEALTH -=1;					
+					break;
+				default:
+					HUD.HEALTH -= 0;
+					break;
 		}
  	}
 }

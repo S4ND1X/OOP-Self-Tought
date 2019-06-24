@@ -24,6 +24,18 @@ public class Handler {
 			tempObject.render(g);
 		}
 	}
+	
+	//Borrar Enemigos
+	public void clearEnemys() {
+		for(int i = 0; i < object.size(); i++) {
+			GameObject tempObject = object.get(i);
+			if(tempObject.getID() == ID.BasicEnemy || tempObject.getID() == ID.SmartEnemy || tempObject.getID() == ID.FastEnemy) {
+				object.remove(i);
+				i--;
+			}
+		}
+	}
+	
 	//Agregar objeto
 	public void addObject(GameObject object) {
 		this.object.add(object);
