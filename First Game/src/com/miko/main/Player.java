@@ -58,6 +58,7 @@ public class Player extends GameObject {
 					break;
 				default:
 					HUD.HEALTH -= 0;
+					
 					break;
 		}
  	}
