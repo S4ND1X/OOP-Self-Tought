@@ -6,7 +6,6 @@ import java.awt.Rectangle;
 
 public class Player extends GameObject {
 	Handler handler;
-	private boolean hasCollided;
 	//Valores Iniciales
 	public Player(int x, int y, ID id, Handler handler) {
 		super(x, y, id);

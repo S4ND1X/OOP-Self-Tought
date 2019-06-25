@@ -2,9 +2,12 @@ package com.miko.main;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
+
+import com.miko.main.Game.STATE;
 
 public class Game extends Canvas implements Runnable{	
 	/**
@@ -19,25 +22,45 @@ public class Game extends Canvas implements Runnable{
 	private Handler handler;
 	private Random r;
 	private HUD hud;
-	private Spawner spawner;
+	private Spawner spawner;	
+	
+	private Menu menu;
+	
+	//Estados que contiene state
+	public enum STATE{
+		Menu,
+		Credits,
+		Game
+	};
+
+	//Crear el estado del juego
+	public STATE gameState = STATE.Menu;
+	
+	//Estado del juego
 	
 	public Game() {
 		
 		//Crear nuevo Handler
 		handler = new Handler();
+		menu = new Menu(this, handler);
 		this.addKeyListener(new KeyInput(handler));
+		this.addMouseListener(menu);
+
 		//Crear ventana
 		new Window(WIDTH, HEIGHT, "First Game", this);			
 		//Crear el HUD
 		hud = new HUD();
 		//Crear Spawner
 		spawner = new Spawner(handler, hud);
-		r = new Random();		
-		//Crear nuevo objeto
-		handler.addObject(new Player(WIDTH / 2 - 64, HEIGHT / 2 - 32, ID.Player, handler));
-		handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.BasicEnemy, handler));
-
-		 
+		//Crear objeto Menu
+		menu = new Menu(this, handler);
+		r = new Random();
+		
+		if(gameState == STATE.Game) {
+			handler.addObject(new Player(Game.WIDTH / 2 - 64, Game.HEIGHT / 2 - 32, ID.Player, handler));
+			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.BasicEnemy, handler));
+		}
+		
 	}
 
 	public synchronized void start() {
@@ -83,7 +106,7 @@ public class Game extends Canvas implements Runnable{
 			
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println("Frames: " + frames);
+				//System.out.println("Frames: " + frames);
 				frames = 0;
 			}
 		}
@@ -91,13 +114,22 @@ public class Game extends Canvas implements Runnable{
 		stop();				
 	}
 	
-	private void tick() {
+	private void tick() 
+	{
 		//Administrador de objetos
 		handler.tick();
-		//Actualizar el hud
-		hud.tick();
-		//Actualizar los enemigos
-		spawner.tick();
+		
+		//Si esta en estado de juego se actualizan los componentes del juego
+		if(gameState == STATE.Game) {
+			//Actualizar los enemigos			
+			spawner.tick();
+			//Actualizar el hud
+			hud.tick();
+		}else if(gameState == STATE.Menu) {
+			menu.tick();
+		}
+		
+		
 	}
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
@@ -114,8 +146,28 @@ public class Game extends Canvas implements Runnable{
 		
 		//Renderizar los objetos
 		handler.render(g);
-		//Renderizar el HUD
-		hud.render(g);
+		//Si esta en estado de juego se crea un juego si no es el menu
+		if(gameState == STATE.Game) {
+			//Renderizar el HUD 
+			hud.render(g);
+		}else if(gameState == STATE.Menu) {
+			menu.render(g);
+		}
+		else if(gameState == STATE.Credits) {
+		
+			g.setFont(new Font("arial", 1, 90));	
+			g.setColor(Color.pink);
+			g.drawString("Created By Jorge S.", 120, 230);
+			
+			g.setFont(new Font("arial", 1, 50));	
+			g.setColor(Color.cyan);
+			g.drawString("RETURN", 440, 470);
+			
+			g.setColor(Color.white);
+			g.drawRect(390, 400, 300, 100);
+				
+			
+		}
 		
 		g.dispose();
 		bs.show();

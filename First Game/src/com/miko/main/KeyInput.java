@@ -3,6 +3,8 @@ import java.awt.event.KeyAdapter;
 
 import java.awt.event.KeyEvent;
 
+import com.miko.main.Game.STATE;
+
 public class KeyInput extends KeyAdapter{
 	
 	private Handler handler;
@@ -17,7 +19,7 @@ public class KeyInput extends KeyAdapter{
 	}	
 	//Obtiene el codigo ASCII de la tecla
 	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();		
+		int key = e.getKeyCode();	
 		for(int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);			
 			if(tempObject.getID() == ID.Player) {
