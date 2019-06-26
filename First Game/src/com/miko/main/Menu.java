@@ -14,22 +14,23 @@ public class Menu extends MouseAdapter {
 	private Game game;
 	private Handler handler;
 	private Random r = new Random();
-	public Menu(Game game, Handler handler) {
+	private HUD hud;
+	public Menu(Game game, Handler handler, HUD hud) {
 		this.game = game;
 		this.handler = handler;
+		this.hud = hud;
 	}
-	
-
 	
 	public void mousePressed(MouseEvent e) {
 		//Obtener Coordenadas del Mouse
 		int mx = e.getX();
-		int my = e.getY();
-		
+		int my = e.getY();		
 		if(mouseOver(mx, my, 390, 310, 300, 100) && game.gameState == STATE.Menu) {
 			game.gameState = STATE.Game;
 			handler.addObject(new Player(Game.WIDTH / 2 - 64, Game.HEIGHT / 2 - 32, ID.Player, handler));
+			handler.clearEnemys();
 			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.BasicEnemy, handler));
+			
 		}
 		if(mouseOver(mx, my, 390, 460, 300, 100) && game.gameState == STATE.Menu) {
 			game.gameState = STATE.Credits;
@@ -41,6 +42,11 @@ public class Menu extends MouseAdapter {
 		
 		if(mouseOver(mx, my, 390, 400, 300, 100) &&  game.gameState == STATE.Credits) {
 			game.gameState = STATE.Menu;
+		}
+		if(mouseOver(mx, my, 390, 400, 300, 100) && game.gameState == STATE.End) {
+			handler.clearEnemys();
+			game.gameState = STATE.Game;			
+			new Game();
 		}
 		
 	}
@@ -64,6 +70,7 @@ public class Menu extends MouseAdapter {
 	}
 	
 	public void render (Graphics g) {
+	if(game.gameState == STATE.Menu) {
 		g.setFont(new Font("arial", 1, 100));	
 		g.setColor(Color.white);
 		g.drawString("CUBIK", 385, 230);
@@ -96,6 +103,32 @@ public class Menu extends MouseAdapter {
 			
 			g.setColor(Color.white);
 			g.drawRect(390, 610, 300, 100);
+			
+		}else if(game.gameState == STATE.End) {
+				
+				g.setFont(new Font("arial", 1, 40));	
+				g.setColor(Color.pink);
+				g.drawString("You Lost. Score: " + hud.getScore() + ". Level: " + hud.getLevel(), 120, 230);
+				
+				g.setFont(new Font("arial", 1, 50));	
+				g.setColor(Color.cyan);
+				g.drawString("RETRY", 440, 470);
+				
+				g.setColor(Color.white);
+				g.drawRect(390, 400, 300, 100);
+					
+		}else if(game.gameState == STATE.Credits) {
+			g.setFont(new Font("arial", 1, 90));	
+			g.setColor(Color.pink);
+			g.drawString("Created By Jorge S.", 120, 230);
+			
+			g.setFont(new Font("arial", 1, 50));	
+			g.setColor(Color.cyan);
+			g.drawString("RETURN", 440, 470);
+			
+			g.setColor(Color.white);
+			g.drawRect(390, 400, 300, 100);
+		}
 			
 				
 	}

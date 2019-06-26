@@ -30,11 +30,12 @@ public class Game extends Canvas implements Runnable{
 	public enum STATE{
 		Menu,
 		Credits,
+		End,
 		Game
 	};
 
 	//Crear el estado del juego
-	public STATE gameState = STATE.Menu;
+	public static STATE gameState = STATE.Menu;
 	
 	//Estado del juego
 	
@@ -42,7 +43,7 @@ public class Game extends Canvas implements Runnable{
 		
 		//Crear nuevo Handler
 		handler = new Handler();
-		menu = new Menu(this, handler);
+		menu = new Menu(this, handler, hud);
 		this.addKeyListener(new KeyInput(handler));
 		this.addMouseListener(menu);
 
@@ -53,17 +54,16 @@ public class Game extends Canvas implements Runnable{
 		//Crear Spawner
 		spawner = new Spawner(handler, hud);
 		//Crear objeto Menu
-		menu = new Menu(this, handler);
+		menu = new Menu(this, handler, hud);
 		r = new Random();
 		
 		if(gameState == STATE.Game) {
 			handler.addObject(new Player(Game.WIDTH / 2 - 64, Game.HEIGHT / 2 - 32, ID.Player, handler));
 			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.BasicEnemy, handler));
-		}else {
-			for(int i = 0; i < 5; i++) {
+		}else {			
+			for(int i = 0; i < 6; i++) {
 				handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
-				handler.addObject(new MenuParticle2(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
-
+				handler.addObject(new MenuParticle2(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle2, handler));
 			}
 		}
 		
@@ -131,8 +131,20 @@ public class Game extends Canvas implements Runnable{
 			spawner.tick();
 			//Actualizar el hud
 			hud.tick();
+			if(HUD.HEALTH <= 0) {
+				HUD.HEALTH = 100;
+				
+				gameState = STATE.End;
+				handler.clearEnemys();
+				for(int i = 0; i < 6; i++) {
+					handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
+					handler.addObject(new MenuParticle2(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle2, handler));
+				}
+				
+			}
 		}else if(gameState == STATE.Menu) {
 			menu.tick();
+			
 		}
 		
 		
@@ -156,24 +168,10 @@ public class Game extends Canvas implements Runnable{
 		if(gameState == STATE.Game) {
 			//Renderizar el HUD 
 			hud.render(g);
-		}else if(gameState == STATE.Menu) {
+		}else if(gameState == STATE.Menu || gameState == STATE.Credits || gameState == STATE.End) {
 			menu.render(g);
 		}
-		else if(gameState == STATE.Credits) {
 		
-			g.setFont(new Font("arial", 1, 90));	
-			g.setColor(Color.pink);
-			g.drawString("Created By Jorge S.", 120, 230);
-			
-			g.setFont(new Font("arial", 1, 50));	
-			g.setColor(Color.cyan);
-			g.drawString("RETURN", 440, 470);
-			
-			g.setColor(Color.white);
-			g.drawRect(390, 400, 300, 100);
-				
-			
-		}
 		
 		g.dispose();
 		bs.show();

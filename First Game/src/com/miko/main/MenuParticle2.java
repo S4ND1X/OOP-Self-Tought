@@ -9,7 +9,6 @@ public class MenuParticle2 extends GameObject {
 	
 	private Handler handler;
 	private Random r = new Random();
-	
 	private Color color = new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256));
 	
 	//Valores Iniciales

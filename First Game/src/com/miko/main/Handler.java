@@ -2,6 +2,8 @@ package com.miko.main;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
+import com.miko.main.Game.STATE;
+
 public class Handler {
 
 	//Crear Lista Ligada
@@ -29,10 +31,14 @@ public class Handler {
 	public void clearEnemys() {
 		for(int i = 0; i < object.size(); i++) {
 			GameObject tempObject = object.get(i);
-			if(tempObject.getID() == ID.BasicEnemy || tempObject.getID() == ID.SmartEnemy || tempObject.getID() == ID.FastEnemy) {
-				object.remove(i);
+			if(tempObject.getID() != ID.Player) {
+				removeObject(tempObject);
 				i--;
 			}
+			else if(Game.gameState == Game.STATE.End) {
+				object.clear();
+			}
+				
 		}
 	}
 	
