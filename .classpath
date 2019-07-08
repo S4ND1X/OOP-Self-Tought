@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="AreaRectangulo/src"/>
+	<classpathentry kind="src" path="Author/src"/>
+	<classpathentry kind="src" path="BlackJack/src"/>
+	<classpathentry kind="src" path="Circle/src"/>
+	<classpathentry kind="src" path="First Game/src"/>
+	<classpathentry kind="src" path="Herencia/src"/>
+	<classpathentry kind="src" path="inversorPalabras/src"/>
+	<classpathentry kind="src" path="LLFunciones/src"/>
+	<classpathentry kind="src" path="valores/src"/>
+	<classpathentry kind="output" path="AreaRectangulo/bin"/>
+</classpath>

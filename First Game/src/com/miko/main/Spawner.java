@@ -45,6 +45,14 @@ public class Spawner {
 				handler.clearEnemys();
 				handler.addObject(new BossEnemy((Game.WIDTH / 2) - 64, -140, ID.BossEnemy, handler));
 				break;
+			/*case 7:
+				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
+				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
+				handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.FastEnemy, handler));
+				handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
+				break;
+				*/
+				
 			}
 		}
 	}
